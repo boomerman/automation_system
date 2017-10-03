@@ -1,2 +1,28 @@
 <% if user_signed_in? %><h1>Welcome <%= current_user.name %></h1>
-<p><b>Email: </b><%=current_user.email %></p> <% end%>
+<p><b>Email: </b><%=current_user.email %></p> 
+
+<h1>hey</h1>
+<ul>
+	<% @users.each do |user| %>
+		<li> 	<%= user.email %>
+			<%= link_to "request for grouping", friend_requests_path(friend_id: user), method: :post %>
+		</li>
+	 <% end %>
+	</ul>
+
+<h1> recieved request</h1>
+<ul>
+	<% @incomings.each do |friend_request| %>
+		<li> <%= friend_request.user_id %>
+		</li>
+	 <% end %>
+	</ul>
+<h1> sent request</h1>
+<ul>
+	<% @outgoings.each do |friend_request| %>
+		<li> <%= friend_request.friend_id %><%= link_to "delete", friend_requests_path(friend_request: friend_request), method: :delete, data: { confirm: 'Are you sure?' } %>
+			 
+		</li>
+	 <% end %>
+	</ul>
+<% end %>
